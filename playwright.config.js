@@ -1,9 +1,19 @@
 // @ts-check
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
+/** @type {'chromium' | 'firefox' | 'webkit'} */
+// @ts-ignore
+const targetedBrowser = process.env.BROWSER || 'chromium';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
+
+const browserDevices = {
+  chromium: devices['Desktop Chrome'],
+  firefox: devices['Desktop Firefox'],
+  webkit: devices['Desktop Safari'],
+};
+
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -17,8 +27,42 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {},
+  use: {
+    ...browserDevices[targetedBrowser],
+    trace: 'on',
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure'
+  },
   /* Configure projects for major browsers */
-  projects: [],
+  projects: [
+    {
+      name: 'loginFlow',
+      testDir: './tests/login',
+    },
+    {
+      name: 'dataTableFlow',
+      testDir: './tests/dataTable',
+    },
+    {
+      name: 'dynamicContentFlow',
+      testDir: './tests/dynamicContent',
+    },
+    {
+      name: 'formFlow',
+      testDir: './tests/formElements',
+    },
+    {
+      name: 'homePageFlow',
+      testDir: './tests/homepage',
+    },
+    {
+      name: 'modalFlow',
+      testDir: './tests/modalsDialogs',
+    },
+    {
+      name: 'multiStepFormFlow',
+      testDir: './tests/multiStepForm',
+    }
+  ],
 });
 
