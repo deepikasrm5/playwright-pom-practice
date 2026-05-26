@@ -30,6 +30,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     ...browserDevices[targetedBrowser],
+    headless : true ? process.env.CI === 'true' : false,
     trace: 'on',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure'
@@ -54,7 +55,7 @@ export default defineConfig({
     },
     {
       name: 'homePageFlow',
-      testDir: './tests/homepage',
+      testDir: './tests/homePage',
     },
     {
       name: 'modalFlow',

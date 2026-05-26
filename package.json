@@ -9,7 +9,7 @@
     "dataTableFlow": "cross-env npx playwright test --project='dataTableFlow'",
     "dynamicContentFlow": "cross-env npx playwright test --project='dynamicContentFlow'",
     "formFlow": "cross-env npx playwright test --project='formFlow'",
-    "homepageFlow": "cross-env npx playwright test --project='homepageFlow'",
+    "homePageFlow": "cross-env npx playwright test --project='homePageFlow'",
     "modalFlow": "cross-env npx playwright test --project='modalFlow'",
     "multiStepFormFlow": "cross-env npx playwright test --project='multiStepFormFlow'"
   },

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 
 const HomePage = require('../pages/home-page');
 const LoginPage = require('../pages/login');
@@ -8,7 +8,7 @@ const DataTablePage = require('../pages/data-table');
 const ModalPage = require('../pages/modals-dialogs');
 const MultiStepFormPage = require('../pages/multi-step-form');
 
-const test = baseTest.extend({
+const test = base.extend({
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page);
         await homePage.navigate();
@@ -40,4 +40,4 @@ const test = baseTest.extend({
     }
 });
 
-module.exports = { test, expect };
+module.exports = { test,expect };
