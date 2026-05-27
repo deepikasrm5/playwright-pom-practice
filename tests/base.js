@@ -9,11 +9,19 @@ const ModalPage = require('../pages/modals-dialogs');
 const MultiStepFormPage = require('../pages/multi-step-form');
 
 const test = base.extend({
-    homePage: async ({ page }, use) => {
-        const homePage = new HomePage(page);
+    sharedPage: [async ({ browser }, use) => {
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await page.goto('https://test-playground-3.preview.emergentagent.com');
+        await use(page);
+        await context.close();
+    }, {scope: 'worker'}],
+
+    homePage: [async ({ sharedPage }, use) => {
+        const homePage = new HomePage(sharedPage);
         await homePage.navigate();
         await use(homePage);
-    },
+    }, {scope: 'worker'}],
 
     loginPage: async ({ page }, use) => {
         await use(new LoginPage(page));
@@ -40,4 +48,4 @@ const test = base.extend({
     }
 });
 
-module.exports = { test,expect };
+module.exports = { test, expect };

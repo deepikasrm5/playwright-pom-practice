@@ -19,5 +19,17 @@ class HomePage {
     async validateHomePageTitle() {
         await expect(this.homePageTitle).toBeVisible({ timeout: 10000 });
     }
+
+    async validateHomePageHeader() {
+        await expect(this.homePageHeader).toBeVisible({ timeout: 10000 });
+    }
+
+    async hardReload() {
+        await this.page.reload({ waitUntil: 'domcontentloaded', timeout:10000, bypassCache: true });
+    }
+
+    async validateURL(expectedURL) {
+        await expect(this.page).toHaveURL(expectedURL, { timeout: 10000 });
+    }
 }
 module.exports = HomePage;
