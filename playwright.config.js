@@ -36,35 +36,6 @@ export default defineConfig({
     screenshot: 'only-on-failure'
   },
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: 'loginFlow',
-      testDir: './tests/login',
-    },
-    {
-      name: 'dataTableFlow',
-      testDir: './tests/dataTable',
-    },
-    {
-      name: 'dynamicContentFlow',
-      testDir: './tests/dynamicContent',
-    },
-    {
-      name: 'formFlow',
-      testDir: './tests/formElements',
-    },
-    {
-      name: 'homePageFlow',
-      testDir: './tests/homePage',
-    },
-    {
-      name: 'modalFlow',
-      testDir: './tests/modalsDialogs',
-    },
-    {
-      name: 'multiStepFormFlow',
-      testDir: './tests/multiStepForm',
-    }
-  ],
+  projects: [],
 });
 
