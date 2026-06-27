@@ -1,0 +1,11 @@
+import { test } from './base';
+import { LoginPage } from '../pages/LoginPage';
+const config = require('../config/config.json');
+const credentials = config.valid;
+
+test('Global Setup for the tests - Login', async ({ loginPage }) => {
+    await loginPage.navigate(config.baseUrl);
+    await loginPage.login(credentials.username, credentials.password);
+    await loginPage.page.waitForURL('**/dashboard', { timeout: 10000 });
+    await loginPage.page.context().storageState({ path: './storageState.json' });
+})

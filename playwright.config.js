@@ -1,6 +1,7 @@
 // @ts-check
 /// <reference types="node" />
 import { defineConfig, devices } from '@playwright/test';
+import { baseUrl } from './config/config.json'
 /** @type {'chromium' | 'firefox' | 'webkit'} */
 // @ts-ignore
 const targetedBrowser = process.env.BROWSER || 'chromium';
@@ -30,12 +31,31 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     ...browserDevices[targetedBrowser],
-    headless : true ? process.env.CI === 'true' : false,
+    baseURL: baseUrl, 
+    storageState: 'storageState.json',
+    headless: true ? process.env.CI === 'true' : false,
     trace: 'on',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure'
   },
   /* Configure projects for major browsers */
-  projects: [],
+  projects: [
+    {
+      name: "setup",
+      testMatch: "tests/setup.js",
+      use: {
+        storageState: undefined
+      }
+    },
+    {
+      name: "loginFlow",
+      testMatch: "tests/login/*"
+    },
+    {
+      name: "formsFlow",
+      testMatch: "tests/forms/*",
+      dependencies: ["setup"]
+    }
+  ],
 });
 

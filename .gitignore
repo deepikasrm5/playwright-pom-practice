@@ -6,3 +6,5 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 playwright_pom_practice_testcases.csv
+storageState.json
+config/
