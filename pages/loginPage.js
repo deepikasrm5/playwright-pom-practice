@@ -8,6 +8,7 @@ export class LoginPage {
         this.passwordField = page.getByRole('textbox', { name: 'Password' });
         this.signInButton = page.getByRole('button', { name: 'Sign in' });
         this.errorMessage = page.locator('#login-error-msg');
+        this.visibilityToggleButton = page.locator('#login-password-toggle-btn');
     }
 
     async navigate(url) {
@@ -49,5 +50,13 @@ export class LoginPage {
     async validateErrorMessage() {
         await expect(this.errorMessage).toBeVisible({timeout: 2000});
         await expect(this.errorMessage).toContainText('Invalid username or password');
+    }
+
+    async getPasswordFieldType() {
+        return this.passwordField.getAttribute('type');
+    }
+
+    async clickVisibilityToggle() {
+        await this.visibilityToggleButton.click();
     }
 }
