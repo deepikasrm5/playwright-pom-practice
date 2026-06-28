@@ -8,3 +8,5 @@ node_modules/
 playwright_pom_practice_testcases.csv
 storageState.json
 config/
+allure-results/
+allure-report/
