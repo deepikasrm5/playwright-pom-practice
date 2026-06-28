@@ -1,4 +1,4 @@
-import { test, expect } from '../base';
+const { test, expect } = require('../base')
 const config = require('../../config/config.json');
 
 test.describe('Login Tests', () => {
@@ -36,6 +36,10 @@ test.describe('Login Tests', () => {
         await expect(passwordFieldType).toBe('text');
     });
     test('[TC-LGN-003] Validate whether hide password toggle is working or not', async ({ loginPage }) => {
+        await loginPage.navigate(config.baseUrl);
+        await loginPage.enterUsername(config.valid.username);
+        await loginPage.enterPassword(config.valid.password);
+        await loginPage.clickVisibilityToggle(); // Show password
         await loginPage.clickVisibilityToggle();
         const passwordFieldType = await loginPage.getPasswordFieldType();
         await expect(passwordFieldType).toBe('password');
