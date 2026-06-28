@@ -1,0 +1,15 @@
+{
+    "baseUrl": "https://example.com/",
+    "valid": {
+        "username": "",
+        "password": ""
+    },
+    "invalid": {
+        "username": "",
+        "password": ""
+    },
+    "xss": {
+        "username": "<script>alert('XSS')</script>",
+        "password": "<script>alert('XSS')</script>"
+    }
+}
