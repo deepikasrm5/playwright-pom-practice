@@ -4,6 +4,7 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
+  request_changes_workflow: true
 
   profile: "chill"          # constructive reviews, not too strict
 
