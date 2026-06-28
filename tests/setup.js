@@ -1,5 +1,5 @@
 import { test } from './base';
-import { LoginPage } from '../pages/LoginPage';
+import { LoginPage } from '../pages/loginPage';
 const config = require('../config/config.json');
 const credentials = config.valid;
 
