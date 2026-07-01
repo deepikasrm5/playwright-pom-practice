@@ -1,14 +1,15 @@
 import { DashboardPage } from "./dashboard";
+import { expect } from '../tests/base';
 export class FormPage {
     constructor(page) {
         this.page = page;
         this.dashboard = new DashboardPage(page);
 
-        this.formsTitle = page.getByText('Form Page');
+        this.formsTitle = page.getByRole('heading', { name: 'Form Page', level: 1 });
         this.inputLabels = {
             fullName: page.getByText('Full name*'),
             email: page.getByText('Email*'),
-            phoneNumber: page.getByText('Phone'),
+            phoneNumber: page.getByText('Phone').first(),
             dateOfBirth: page.getByText('Date of birth'),
             country: page.getByLabel('Country*'),
             preferredContactMethod: page.getByText('Preferred contact method*'),
@@ -36,7 +37,9 @@ export class FormPage {
     }
 
     async navigateToForms() {
-        await this.dashboard.clickCard('Forms');
+        await this.dashboard.openDashboard();
+        await this.dashboard.clickCard('Form Page');
+        await this.formsTitle.waitFor({ state: 'visible', timeout: 10000 });
         await expect(this.formsTitle, { message: "Forms page title should be visible" }).toBeVisible({ timeout: 10000 });
     }
 
@@ -93,7 +96,7 @@ export class FormPage {
     }
 
     async selectCountry(country) {
-        await this.inputFields.country.selectOption(country);
+        await this.inputLabels.country.selectOption(country);
     }
 
     async selectPreferredContactMethod(method) {

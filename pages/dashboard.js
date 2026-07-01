@@ -1,9 +1,10 @@
 import { expect } from '../tests/base';
+import { baseUrl } from '../config/config.json';
 export class DashboardPage {
     constructor(page) {
         this.page = page;
 
-        this.cardTile = (feat) => { return page.locator(`a#card-${feat}`) };
+        this.cardTile = (feat) => { return page.getByRole('link', { name: `${feat}`, exact:true }) };
         this.cardName = (feat) => { return this.cardTile(feat).locator('h2') };
         this.featDescription = (feat) => { return this.cardTile(feat).locator('p') };
         this.title = page.getByText("Welcome to TestLab");
@@ -24,6 +25,10 @@ export class DashboardPage {
         const menu = await this.menuLink(feat);
         await menu.waitFor({ state:'visible', timeout: 10000 });
         await menu.click();
+    }
+
+    async openDashboard() {
+        await this.page.goto(baseUrl + 'dashboard');
     }
 
     async goToDashboard() {

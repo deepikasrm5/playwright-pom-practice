@@ -27,6 +27,7 @@ export const test = base.extend({
 
     formPage: async ({ page }, use) => {
         const formPage = new FormPage(page);
+        await formPage.navigateToForms();
         await use(formPage);
         
     },
