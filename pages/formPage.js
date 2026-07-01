@@ -4,6 +4,7 @@ export class FormPage {
         this.page = page;
         this.dashboard = new DashboardPage(page);
 
+        this.formsTitle = page.getByText('Form Page');
         this.inputLabels = {
             fullName: page.getByText('Full name*'),
             email: page.getByText('Email*'),
@@ -32,5 +33,96 @@ export class FormPage {
         this.errorToastMessage = page.locator('#toast-error');
         this.successToastMessage = page.locator('#toast-success');
         this.inlineSuccessMessage = page.getByText('Your profile has been saved.');
+    }
+
+    async navigateToForms() {
+        await this.dashboard.clickCard('Forms');
+        await expect(this.formsTitle, { message: "Forms page title should be visible" }).toBeVisible({ timeout: 10000 });
+    }
+
+    async validateInputLabels() {
+        for (const label in this.inputLabels) {
+            await expect(this.inputLabels[label], { message: `${label} label should be visible` }).toBeVisible({ timeout: 10000 });
+        }
+    }
+
+    async validateInputFields() {
+        for (const field in this.inputFields) {
+            if (field === 'interest' || field === 'preferedContactMethod') {
+                continue; // Skip validation for dynamic fields
+            }
+            await expect(this.inputFields[field], { message: `${field} input field should be visible` }).toBeVisible({ timeout: 10000 });
+        }
+    }
+
+    async validateButtons() {
+        await expect(this.submitButton, { message: "Submit button should be visible" }).toBeVisible({ timeout: 10000 });
+        await expect(this.resetButton, { message: "Reset button should be visible" }).toBeVisible({ timeout: 10000 });
+    }
+
+    async validateValidationMessage(message) {
+        await expect(this.validationMessage(message), { message: `Validation message "${message}" should be visible` }).toBeVisible({ timeout: 10000 });
+    }
+
+    async validateErrorToastMessage() {
+        await expect(this.errorToastMessage, { message: "Error toast message should be visible" }).toBeVisible({ timeout: 10000 });
+    }
+
+    async validateSuccessToastMessage() {
+        await expect(this.successToastMessage, { message: "Success toast message should be visible" }).toBeVisible({ timeout: 10000 });
+    }
+
+    async validateInlineSuccessMessage() {
+        await expect(this.inlineSuccessMessage, { message: "Inline success message should be visible" }).toBeVisible({ timeout: 10000 });
+    }
+
+    async fillFullName(name) {
+        await this.inputFields.fullName.fill(name);
+    }
+
+    async fillEmail(email) {
+        await this.inputFields.email.fill(email);
+    }
+
+    async fillPhoneNumber(phone) {
+        await this.inputFields.phoneNumber.fill(phone);
+    }
+
+    async fillDateOfBirth(dob) {
+        await this.inputFields.dateOfBirth.fill(dob);
+    }
+
+    async selectCountry(country) {
+        await this.inputFields.country.selectOption(country);
+    }
+
+    async selectPreferredContactMethod(method) {
+        await this.inputFields.preferedContactMethod(method).check();
+    }
+
+    async selectInterests(interests) {
+        for (const interest of interests) {
+            await this.inputFields.interest(interest).check();
+        }
+    }
+
+    async fillBio(bio) {
+        await this.inputFields.bio.fill(bio);
+    }
+
+    async uploadProfilePicture(filePath) {
+        await this.inputFields.profilePicture.setInputFiles(filePath);
+    }
+
+    async acceptTermsAndConditions() {
+        await this.inputFields.termsAndConditions.check();
+    }
+
+    async clickSubmit() {
+        await this.submitButton.click();
+    }
+
+    async clickReset() {
+        await this.resetButton.click();
     }
 }
