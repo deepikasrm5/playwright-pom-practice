@@ -53,7 +53,7 @@ test.describe('Forms Tests', () => {
         });
     });
 
-    test.only('[TC-FRM-002] Verify whether the form submits successfully when both required and optional fields are filled with valid data', async ({ formPage }) => {
+    test('[TC-FRM-002] Verify whether the form submits successfully when both required and optional fields are filled with valid data', async ({ formPage }) => {
         await test.step('Fill full name', async () => {
             await formPage.fillFullName('Jane Smith');
         });
